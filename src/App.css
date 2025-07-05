@@ -1,10 +1,9 @@
-
 .navMainContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
-  z-index: 2000; 
+  z-index: 2000;
 }
 
 .navBarLogo {
@@ -18,36 +17,79 @@
   gap: 1rem;
 }
 
-/* .mainBodyContainer {
+.mainBodyContainer {
   display: flex;
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+  /* align-items: center; */
+  margin: 10% 10px 10px 10px;
   padding: 1rem;
-} */
+}
 
-.cards{
+.cards {
   display: flex;
   gap: 3rem;
   justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
+  
 }
 
-.mainContainerSearching {
-  border: 2px solid black;
-  padding: 1rem;
-  height: auto;
+.card {
   transition: all 0.3s ease;
   overflow: hidden;
+  background-color: #f2f2f2b5;
+  backdrop-filter: blur(6px);
+  border-radius: 5px;
+  box-shadow: 1px 4px 10px rgba(108, 2, 2, 0.1);
 }
+
+.card:hover {
+  border-radius: 10px;
+  transform: scale(1.03 );
+  box-shadow: 1px 3px 5px rgba(72, 72, 72, 0.979);
+  border-color: #4b9cd3;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+
+.mainContainerSearching,
+.mainContainerSorting,
+.mainContainerPathfinding {
+  border: 2px solid black;
+  padding: 1rem;
+  height: 400px;
+  width: 300px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: rgba(189, 186, 186, 0.1);
+  backdrop-filter: blur(6px);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 
 .mainContainerSearching.expandedCard {
   padding: 0;
   margin: 0;
-  width: 100%;
+  width: 97%;
   height: 100dvh;
   position: fixed;
   top: 100px;
   z-index: 1000;
   overflow-y: auto;
+}
+
+.mainContainerSearching.expandedCard h2{
+  text-align: center;
+}
+
+.mainContainerSearching.expandedCard .searchingHeader{
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }

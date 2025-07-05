@@ -18,9 +18,9 @@ function MainBody() {
     <div className="mainBodyContainer">
       {selected === "" ? (
         <div className="cards">
-          <Searching setSelected={setSelected}  />
-          <Sorting setSelected={setSelected} />
-          <Other setSelected={setSelected} />
+        <div className="card">  <Searching setSelected={setSelected} /></div>
+        <div className="card">  <Sorting setSelected={setSelected} /></div>
+        <div className="card">   <Other setSelected={setSelected} /></div>
         </div>
       ) : (
         <SelectedComponent isOnlyCard setSelected={setSelected} />
