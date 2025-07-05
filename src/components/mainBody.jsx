@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Searching from "./Algo/searching";
-import Sorting from "./Algo/sorting";
-import Other from "./Algo/other";
+import Searching from "./Algo/searching/searching";
+import Sorting from "./Algo/sorting/sorting";
+import Other from "./Algo/pathFinding/other";
 
 function MainBody() {
   const [selected, setSelected] = useState("");
