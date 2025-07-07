@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LinearSearch from "./linearSearch";
-
+import BinarySearch from "./binarySearch";
+import JumpSearch from "./jumpSearch";
 
 function Searching({ setSelected, isOnlyCard }) {
   const handleClick = () => {
@@ -12,12 +13,17 @@ function Searching({ setSelected, isOnlyCard }) {
   const changeAlgo = (AlgoComponent) => {
     setSelectedAlgoComponent(() => AlgoComponent);
   };
-
+  
   return (
     <div
-      className={`mainContainerSearching ${isOnlyCard ? "expandedCard" : ""}`}
-      onClick={handleClick}
+    className={`mainContainerSearching ${isOnlyCard ? "expandedCard" : ""}`}
+    onClick={handleClick}
     >
+      {isOnlyCard && (
+        <button onClick={() => setSelected("")} style={{ marginTop: "1rem" }}>
+          ⬅ Back to All
+        </button>
+      )}
       <h2><strong>Searching</strong></h2>
 
       {isOnlyCard && (
@@ -45,11 +51,6 @@ function Searching({ setSelected, isOnlyCard }) {
         </div>
       )}
 
-      {isOnlyCard && (
-        <button onClick={() => setSelected("")} style={{ marginTop: "1rem" }}>
-          ⬅ Back to All
-        </button>
-      )}
     </div>
   );
 }
