@@ -206,7 +206,7 @@
 }
 
 .tree-node {
-  fill: #4ade80;
+  fill: #ded74a;
   transition: fill 0.3s;
 }
 
@@ -221,3 +221,23 @@
   font-weight: bold;
   font-family: monospace;
 }
+@keyframes blink-red {
+  50% { fill: #da1a1a; }
+  100% { fill: #f87171; }
+}
+@keyframes blink-green {
+  50% { fill: #5fb910; }
+  100% { fill: #59d334; }
+}
+
+.tree-node.not-found {
+  animation: blink-red 0.8s infinite;
+}
+.tree-node.found {
+  animation: blink-green 0.8s infinite;
+}
+.tree-node.mid-node {
+  stroke: #6366f1;
+  stroke-width: 2;
+}
+
