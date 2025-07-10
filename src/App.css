@@ -60,7 +60,7 @@
 .mainContainerPathfinding {
   border: 2px solid black;
   padding: 1rem;
-  height: 400px;
+  min-height: 400px;
   width: 300px;
   transition: all 0.3s ease;
   overflow: hidden;
@@ -74,14 +74,16 @@
 
 
 .mainContainerSearching.expandedCard {
-  padding: 0;
-  margin: 0;
-  width: 97%;
-  height: 200dvb;
+  padding: 20px;
+  margin: 20px;
+  width: calc(100% - 80px); /* Account for margins */
+  height: calc(100vh - 140px); /* Account for header */
   position: fixed;
   top: 100px;
+  left: 0;
   z-index: 1000;
-  overflow-y: auto;
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden;
 }
 
 .mainContainerSearching.expandedCard h2{
@@ -137,3 +139,85 @@
 }
 
 /* binary search  */
+.bst-container {
+  padding: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9fafb;
+}
+
+.bst-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.bst-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.bst-input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  width: 140px;
+}
+
+.bst-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.bst-button.insert {
+  background-color: #10b981;
+}
+
+.bst-button.search {
+  background-color: #f59e0b;
+}
+
+.bst-button.random {
+  background-color: #3b82f6;
+}
+
+.bst-slider {
+  width: 120px;
+}
+
+.bst-canvas {
+  overflow-x: auto;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.tree-line {
+  stroke: #000;
+  stroke-width: 2;
+}
+
+.tree-node {
+  fill: #4ade80;
+  transition: fill 0.3s;
+}
+
+.tree-node.highlight {
+  fill: #f97316;
+}
+
+.tree-label {
+  font-size: 14px;
+  fill: #000;
+  text-anchor: middle;
+  font-weight: bold;
+  font-family: monospace;
+}
