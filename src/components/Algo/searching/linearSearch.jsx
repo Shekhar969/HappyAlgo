@@ -1,7 +1,7 @@
 // src/components/LinearSearch.jsx
 import { useState, useEffect } from "react";
 import { generateRandomArray } from "../../utils/randomArrayGen";
-import '../../../App.css'
+import '../../../App.css';
 
 const LinearSearch = () => {
   const [arraySize, setArraySize] = useState(10);
@@ -9,106 +9,93 @@ const LinearSearch = () => {
   const [target, setTarget] = useState("");
   const [current, setCurrent] = useState(null);
   const [foundIndex, setFoundIndex] = useState(null);
-  const [log, setLog] = useState("");
+  const [logs, setLogs] = useState([]);
   const [speed, setSpeed] = useState(500);
   const [manualMode, setManualMode] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [searchAbort, setSearchAbort] = useState(false);
 
   useEffect(() => {
-    setArray(generateRandomArray(arraySize));
-    setCurrent(null);
-    setFoundIndex(null);
-    setLog("");
-    setTarget("");
-    setStepIndex(0);
-    setIsRunning(false);
+    reset();
   }, [arraySize]);
 
+  const reset = () => {
+    setArray(generateRandomArray(arraySize));
+    setTarget("");
+    setCurrent(null);
+    setFoundIndex(null);
+    setLogs([]);
+    setStepIndex(0);
+    setIsRunning(false);
+  };
+
   const handleSearch = async () => {
-    if (!target || isNaN(parseInt(target))) {
-      setLog("❗ Please enter a valid number to search.");
+    const t = parseInt(target);
+    if (isNaN(t)) {
+      setLogs(["❗ Please enter a valid number to search."]);
       return;
     }
 
     setCurrent(null);
     setFoundIndex(null);
-    setLog("");
+    setLogs([`🔍 Starting auto‑search for ${t}`]);
     setStepIndex(0);
     setIsRunning(true);
-    setSearchAbort(false);
 
     for (let i = 0; i < array.length; i++) {
-      if (manualMode || searchAbort) return;
+      if (manualMode) break;
 
       setCurrent(i);
-      setLog(`Comparing ${array[i]} with ${target}`);
+      setLogs((L) => [...L, `Comparing array[${i}] (${array[i]}) with ${t}`]);
+      await new Promise((r) => setTimeout(r, speed));
 
-      const currentSpeed = speed;
-      await new Promise((r) => setTimeout(r, currentSpeed));
-
-      if (array[i] === parseInt(target)) {
+      if (array[i] === t) {
         setFoundIndex(i);
-        setLog(`✅ Found ${target} at index ${i}`);
+        setLogs((L) => [...L, `✅ Found ${t} at index ${i}`]);
         setIsRunning(false);
         return;
       }
     }
 
-    setLog(`❌ ${target} not found`);
-    setIsRunning(false);
+    if (!manualMode) {
+      setLogs((L) => [...L, `❌ ${t} not found in the array`]);
+      setIsRunning(false);
+    }
   };
 
-  const runManualStep = () => {
-    if (!target || isNaN(parseInt(target))) {
-      setLog("❗ Please enter a valid number to search.");
-      return;
-    }
-
-    if (!isRunning || stepIndex >= array.length) {
-      setLog("❌ Target not found");
-      setIsRunning(false);
-      return;
-    }
-
-    const value = array[stepIndex];
-    setCurrent(stepIndex);
-    setLog(`Comparing ${value} with ${target}`);
-
-    if (value === parseInt(target)) {
-      setFoundIndex(stepIndex);
-      setLog(`✅ Found ${target} at index ${stepIndex}`);
-      setIsRunning(false);
-      return;
-    }
-
-    setStepIndex(stepIndex + 1);
-  };
-
-  const startManualSearch = () => {
-    if (!target || isNaN(parseInt(target))) {
-      setLog("❗ Please enter a valid number to search.");
+  const startManual = () => {
+    const t = parseInt(target);
+    if (isNaN(t)) {
+      setLogs(["❗ Please enter a valid number to search."]);
       return;
     }
 
     setCurrent(null);
     setFoundIndex(null);
-    setLog("");
+    setLogs([`🔍 Starting manual‑search for ${t}`]);
     setStepIndex(0);
     setIsRunning(true);
-    setSearchAbort(false);
   };
 
-  const regenerateArray = () => {
-    if (isRunning) return;
-    setArray(generateRandomArray(arraySize));
-    setTarget("");
-    setCurrent(null);
-    setFoundIndex(null);
-    setLog("");
-    setStepIndex(0);
-    setIsRunning(false);
+  const manualStep = () => {
+    const t = parseInt(target);
+    if (!isRunning || stepIndex >= array.length) {
+      setLogs((L) => [...L, `❌ ${t} not found after ${stepIndex} steps`]);
+      setIsRunning(false);
+      return;
+    }
+
+    const idx = stepIndex;
+    setCurrent(idx);
+    setLogs((L) => [...L, `Comparing array[${idx}] (${array[idx]}) with ${t}`]);
+
+    if (array[idx] === t) {
+      setFoundIndex(idx);
+      setLogs((L) => [...L, `✅ Found ${t} at index ${idx}`]);
+      setIsRunning(false);
+    } else {
+      setStepIndex(idx + 1);
+    }
   };
 
   return (
@@ -116,13 +103,13 @@ const LinearSearch = () => {
       <h2>🔍 Linear Search Visualizer</h2>
 
       <div className="array">
-        {array.map((num, index) => (
+        {array.map((num, idx) => (
           <div
-            key={index}
+            key={idx}
             className={`block ${
-              index === foundIndex
+              idx === foundIndex
                 ? "found"
-                : index === current
+                : idx === current
                 ? "checking"
                 : ""
             }`}
@@ -163,23 +150,47 @@ const LinearSearch = () => {
         />
 
         {!manualMode && (
-          <button onClick={handleSearch} disabled={isRunning}>Search</button>
+          <button onClick={handleSearch} disabled={isRunning}>
+            Search
+          </button>
         )}
         {manualMode && !isRunning && (
-          <button onClick={startManualSearch}>Start Manual</button>
+          <button onClick={startManual}>Start Manual</button>
         )}
         {manualMode && isRunning && (
-          <button onClick={runManualStep}>Next Step</button>
+          <button onClick={manualStep}>Next Step</button>
         )}
 
-        <button onClick={() => setManualMode(!manualMode)} disabled={isRunning}>
-          {manualMode ? "Switch to Auto Mode" : "Switch to Manual Mode"}
+        <button
+          onClick={() => {
+            setManualMode(!manualMode);
+            reset();
+          }}
+          disabled={isRunning}
+        >
+          {manualMode ? "Auto Mode" : "Manual Mode"}
         </button>
 
-        <button onClick={regenerateArray}>New Array</button>
+        <button onClick={reset} disabled={isRunning}>
+          New Array
+        </button>
       </div>
 
-      <p className="log-window">Status: {log}</p>
+      {/* —— New Log Panel —— */}
+      <div className="log-panel">
+        <h3>Operation Log</h3>
+        <div className="log-messages">
+          {logs.length === 0 ? (
+            <p className="log-empty">No operations yet</p>
+          ) : (
+            logs.map((line, i) => (
+              <p key={i} className="log-line">
+                {line}
+              </p>
+            ))
+          )}
+        </div>
+      </div>
     </div>
   );
 };

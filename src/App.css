@@ -137,6 +137,37 @@
   font-size: 1rem;
   color: #333;
 }
+.log-panel {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.log-panel h3 {
+  margin: 0 0 0.5rem;
+}
+
+.log-messages {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+.log-line {
+  margin: 0.25rem 0;
+}
+
+.log-empty {
+  font-style: italic;
+  color: #94a3b8;
+}
+
+
+
 
 /* binary search  */
 .bst-container {
