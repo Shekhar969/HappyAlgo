@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import BubbleSort from "./bubbleSort";
-import SelectionSort from "./selectionSort";
-import MergeSort from "./mergeSort";
-import QuickSort from "./quickSort";
+import BubbleSort from "./bubbleSort.jsx";
+import SelectionSort from "./selectionSort.jsx";
+import MergeSort from "./mergeSort.jsx";
+import QuickSort from "./quickSort.jsx";
 
 function Sorting({ setSelected, isOnlyCard }) {
   const handleClick = () => {
