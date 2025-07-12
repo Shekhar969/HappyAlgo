@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { generateRandomArray } from "../../utils/randomArrayGen";
-import "../../../App.css";
-
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function BubbleSort() {

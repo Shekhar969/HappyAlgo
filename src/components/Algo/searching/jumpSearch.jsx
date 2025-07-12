@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { generateRandomArray } from "../../utils/randomArrayGen";
-import '../../../App.css';
+import './searching.module.css';
 
 const JumpSearch = () => {
   const [arraySize, setArraySize] = useState(20);

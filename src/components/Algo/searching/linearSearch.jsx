@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { generateRandomArray } from "../../utils/randomArrayGen";
-import '../../../App.css';
+import './searching.module.css';
 
 const LinearSearch = () => {
   const [arraySize, setArraySize] = useState(10);
