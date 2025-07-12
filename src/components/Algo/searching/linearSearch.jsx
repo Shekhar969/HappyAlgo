@@ -1,4 +1,3 @@
-// src/components/LinearSearch.jsx
 import { useState, useEffect } from "react";
 import { generateRandomArray } from "../../utils/randomArrayGen";
 import '../../../App.css';
